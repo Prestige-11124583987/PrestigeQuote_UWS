@@ -14,7 +14,7 @@
   "addOns": [
     {
       "name": "Level I Customization",
-      "active": true,
+      "active": false,
       "chargeBy": "SF",
       "unitLabel": "/ SF",
       "pricesByStyle": {
@@ -25,7 +25,7 @@
     },
     {
       "name": "Level II Customization",
-      "active": true,
+      "active": false,
       "chargeBy": "SF",
       "unitLabel": "/ SF",
       "pricesByStyle": {
@@ -36,7 +36,7 @@
     },
     {
       "name": "Level III Customization",
-      "active": true,
+      "active": false,
       "chargeBy": "SF",
       "unitLabel": "/ SF",
       "pricesByStyle": {

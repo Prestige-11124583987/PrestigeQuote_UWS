@@ -275,18 +275,18 @@ export function calculateQuote(quote, data) {
 
 export function makeSampleQuote() {
   return {
-    quoteNumber: "",
+    quoteNumber: "NA",
     preparedFor: {
       company: "",
       contact: ""
     },
     preparedBy: {
-      name: "",
-      email: "",
-      phone: ""
+      name: "Prestige Iron Doors",
+      email: "info@prestigeirondoors.com",
+      phone: "(855) 767-2837"
     },
-    customerType: "",
-    discountTier: "",
+    customerType: "Distributor",
+    discountTier: "High",
     installationDiscountRate: 0,
     productionDepositRate: 0.5,
     workScope: [],

@@ -1,0 +1,302 @@
+{
+  "_instructions": [
+    "EDIT THIS FILE to change repository-wide default prices and options.",
+    "Enter discounts as whole percentages. Example: 18 means 18%, not 0.18.",
+    "Set an add-on active value to true to show it or false to hide it from new quotes.",
+    "Keep commas and quotation marks in place. Commit the file to GitHub and Render will redeploy.",
+    "Salespeople can still make temporary browser-only edits inside Pricing & Options."
+  ],
+  "basePricesPerSquareFoot": {
+    "Traditional": 225,
+    "Slim Line": 210,
+    "Interior Partitions": 120
+  },
+  "addOns": [
+    {
+      "name": "Level I Customization",
+      "active": true,
+      "chargeBy": "SF",
+      "unitLabel": "/ SF",
+      "pricesByStyle": {
+        "Traditional": 26.84,
+        "Slim Line": 26.84,
+        "Interior Partitions": 0
+      }
+    },
+    {
+      "name": "Level II Customization",
+      "active": true,
+      "chargeBy": "SF",
+      "unitLabel": "/ SF",
+      "pricesByStyle": {
+        "Traditional": 53.3,
+        "Slim Line": 53.3,
+        "Interior Partitions": 0
+      }
+    },
+    {
+      "name": "Level III Customization",
+      "active": true,
+      "chargeBy": "SF",
+      "unitLabel": "/ SF",
+      "pricesByStyle": {
+        "Traditional": 84.3,
+        "Slim Line": 84.3,
+        "Interior Partitions": 0
+      }
+    },
+    {
+      "name": "Magnetic Screen",
+      "active": true,
+      "chargeBy": "Slabs",
+      "unitLabel": "/ Slab(s)",
+      "pricesByStyle": {
+        "Traditional": 160,
+        "Slim Line": 160,
+        "Interior Partitions": 0
+      }
+    },
+    {
+      "name": "Simulated Divided Lites (SDL)",
+      "active": true,
+      "chargeBy": "SF",
+      "unitLabel": "/ SF",
+      "pricesByStyle": {
+        "Traditional": 0,
+        "Slim Line": 0,
+        "Interior Partitions": 5.56
+      }
+    },
+    {
+      "name": "True Divided Lites (TDL)",
+      "active": true,
+      "chargeBy": "SF",
+      "unitLabel": "/ SF",
+      "pricesByStyle": {
+        "Traditional": 0,
+        "Slim Line": 6,
+        "Interior Partitions": 11.14
+      }
+    },
+    {
+      "name": "Impact Glass",
+      "active": true,
+      "chargeBy": "Glass",
+      "unitLabel": "/ SF of Glass",
+      "pricesByStyle": {
+        "Traditional": 40,
+        "Slim Line": 40,
+        "Interior Partitions": 0
+      }
+    },
+    {
+      "name": "Arctic Glass Treatment",
+      "active": true,
+      "chargeBy": "Glass",
+      "unitLabel": "/ SF of Glass",
+      "pricesByStyle": {
+        "Traditional": 37.8,
+        "Slim Line": 37.8,
+        "Interior Partitions": 0
+      }
+    },
+    {
+      "name": "Low E (FREE)",
+      "active": true,
+      "chargeBy": "Glass",
+      "unitLabel": "/ SF of Glass",
+      "pricesByStyle": {
+        "Traditional": 0,
+        "Slim Line": 0,
+        "Interior Partitions": 0
+      }
+    },
+    {
+      "name": "Marine Coating",
+      "active": true,
+      "chargeBy": "SF",
+      "unitLabel": "/ SF",
+      "pricesByStyle": {
+        "Traditional": 13.8,
+        "Slim Line": 13.8,
+        "Interior Partitions": 0
+      }
+    },
+    {
+      "name": "VerdiGreen Paint",
+      "active": true,
+      "chargeBy": "SF",
+      "unitLabel": "/ SF",
+      "pricesByStyle": {
+        "Traditional": 11.16,
+        "Slim Line": 11.16,
+        "Interior Partitions": 0
+      }
+    },
+    {
+      "name": "EP56 Steel",
+      "active": true,
+      "chargeBy": "SF",
+      "unitLabel": "/ SF",
+      "pricesByStyle": {
+        "Traditional": 0,
+        "Slim Line": 0,
+        "Interior Partitions": 5
+      }
+    },
+    {
+      "name": "EP57 Steel (Thermal Break)",
+      "active": true,
+      "chargeBy": "SF",
+      "unitLabel": "/ SF",
+      "pricesByStyle": {
+        "Traditional": 0,
+        "Slim Line": 0,
+        "Interior Partitions": 0
+      }
+    },
+    {
+      "name": "Thermal Break 2.0",
+      "active": true,
+      "chargeBy": "SF",
+      "unitLabel": "/ SF",
+      "pricesByStyle": {
+        "Traditional": 96.6,
+        "Slim Line": 92.9,
+        "Interior Partitions": 40.6
+      }
+    },
+    {
+      "name": "Deadbolt (w/ Pull Handle)",
+      "active": true,
+      "chargeBy": "Each",
+      "unitLabel": "/ Door(s)",
+      "pricesByStyle": {
+        "Traditional": 40,
+        "Slim Line": 40,
+        "Interior Partitions": 40
+      }
+    },
+    {
+      "name": "Operable Handle",
+      "active": true,
+      "chargeBy": "Each",
+      "unitLabel": "/ Door(s)",
+      "pricesByStyle": {
+        "Traditional": 250,
+        "Slim Line": 250,
+        "Interior Partitions": 80
+      }
+    },
+    {
+      "name": "Stained Glass",
+      "active": true,
+      "chargeBy": "Glass",
+      "unitLabel": "/ SF of Glass",
+      "pricesByStyle": {
+        "Traditional": 12,
+        "Slim Line": 12,
+        "Interior Partitions": 12
+      }
+    },
+    {
+      "name": "Electronic Glass",
+      "active": true,
+      "chargeBy": "Glass",
+      "unitLabel": "/ SF of Glass",
+      "pricesByStyle": {
+        "Traditional": 40,
+        "Slim Line": 40,
+        "Interior Partitions": 40
+      }
+    }
+  ],
+  "discountPercentages": {
+    "Retail": {
+      "Low": 15,
+      "High": 20
+    },
+    "Builder": {
+      "Low": 30,
+      "High": 35
+    },
+    "Distributor": {
+      "Low": 40,
+      "High": 45
+    }
+  },
+  "installationPrices": {
+    "New Build": 1500,
+    "Retrofit": 2500,
+    "Window": 850,
+    "Distance Fee": 500
+  },
+  "dropdownOptions": {
+    "Styles": [
+      "Traditional",
+      "Slim Line",
+      "Interior Partitions",
+      "[TBD]"
+    ],
+    "Slabs": [
+      1,
+      2
+    ],
+    "Build Types": [
+      "New Build",
+      "Retrofit",
+      "Window"
+    ],
+    "Swing": [
+      "LH Inswing",
+      "LH Outswing",
+      "RH Inswing",
+      "RH Outswing"
+    ],
+    "Glass Type": [
+      "Clear",
+      "LowE",
+      "Arctic",
+      "Rain",
+      "Glacier",
+      "Frosted"
+    ],
+    "Glass Color": [
+      "Clear ",
+      "Pink",
+      "Red",
+      "Blue",
+      "Brown",
+      "Green",
+      "Multi"
+    ],
+    "Colors": [
+      "Matte Black",
+      "Bronze Patina",
+      "Aged Bronze Patina",
+      "Aged Bronze",
+      "Aged Pewter",
+      "Aged Pewter Patina",
+      "Bahama Brown 309",
+      "Aged Copper Patina",
+      "Aged Copper"
+    ],
+    "Customer Type": [
+      "Retail",
+      "Builder",
+      "Distributor"
+    ],
+    "Discount Tier": [
+      "Low",
+      "High"
+    ],
+    "Yes/No": [
+      "Yes",
+      "No"
+    ],
+    "Accessibility": [
+      "Standard",
+      "ADA Compliant"
+    ]
+  }
+}

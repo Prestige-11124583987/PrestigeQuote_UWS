@@ -1,0 +1,37 @@
+PRESTIGE INTERNAL QUOTE TOOL v2.16
+PACKAGE VERSION 2.16.0
+
+QUOTE HEADER
+The Quote preview and generated PDF use public/branding/quote-header.png.
+To change it for everyone, replace that file in GitHub, keep the exact filename, commit, and redeploy Render. No code changes are required.
+
+PRICING EDITOR
+Open Pricing & Options inside the app. It is collapsed by default.
+
+Team members can change:
+- Base selling prices
+- Add-on names
+- Add-on selling prices
+- Add-on visibility using the On / Off toggle
+- Installation prices
+- Retail, builder, and distributor discounts
+- Dropdown lists
+
+Click "Save Changes on This Browser" to keep changes on that browser only.
+Click "Discard Browser Edits & Use Repository Defaults" to remove that browser's saved pricing and reload repository defaults. Clearing browser cache is not required.
+
+DEFAULT REPOSITORY PRICING
+Edit EDIT-PRICING-HERE.json in GitHub to change defaults used after deployment. See EDIT-PRICING-GUIDE.md.
+
+COMPANY-WIDE QUOTE SUPPLEMENTS
+Only final approved PDFs belong in invoice-supplements. They append behind every generated Quote in filename order after deployment.
+The approved 01-Door-Order-Process-and-Product-Warranty.pdf ships in this folder and appends behind every Quote.
+
+BROWSER-ONLY SUPPLEMENTS
+The Quote Supplements card can upload optional PDFs for the current browser. These are not shared with other devices.
+
+FREE RENDER INSTANCE
+Repository branding and approved repository supplements work on the free Render instance. Pricing edits and optional browser uploads remain browser-local.
+
+QUOTE CALCULATION
+The door-unit retail price includes the base door price plus all selected add-ons. The door discount applies to that entire amount. Installation is shown separately. The production deposit is 50% of the discounted door/window units and excludes installation.

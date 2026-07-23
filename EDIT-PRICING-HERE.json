@@ -58,7 +58,7 @@
     },
     {
       "name": "Simulated Divided Lites (SDL)",
-      "active": true,
+      "active": false,
       "chargeBy": "SF",
       "unitLabel": "/ SF",
       "pricesByStyle": {
@@ -69,7 +69,7 @@
     },
     {
       "name": "True Divided Lites (TDL)",
-      "active": true,
+      "active": false,
       "chargeBy": "SF",
       "unitLabel": "/ SF",
       "pricesByStyle": {
@@ -86,12 +86,12 @@
       "pricesByStyle": {
         "Traditional": 40,
         "Slim Line": 40,
-        "Interior Partitions": 0
+        "Interior Partitions": 40
       }
     },
     {
       "name": "Arctic Glass Treatment",
-      "active": true,
+      "active": false,
       "chargeBy": "Glass",
       "unitLabel": "/ SF of Glass",
       "pricesByStyle": {
@@ -124,7 +124,7 @@
     },
     {
       "name": "VerdiGreen Paint",
-      "active": true,
+      "active": false,
       "chargeBy": "SF",
       "unitLabel": "/ SF",
       "pricesByStyle": {
@@ -135,7 +135,7 @@
     },
     {
       "name": "EP56 Steel",
-      "active": true,
+      "active": false,
       "chargeBy": "SF",
       "unitLabel": "/ SF",
       "pricesByStyle": {
@@ -146,7 +146,7 @@
     },
     {
       "name": "EP57 Steel (Thermal Break)",
-      "active": true,
+      "active": false,
       "chargeBy": "SF",
       "unitLabel": "/ SF",
       "pricesByStyle": {
@@ -200,7 +200,7 @@
       }
     },
     {
-      "name": "Electronic Glass",
+      "name": "Switchable E-Glass (w/ Remote)",
       "active": true,
       "chargeBy": "Glass",
       "unitLabel": "/ SF of Glass",
@@ -222,7 +222,7 @@
     },
     "Distributor": {
       "Low": 40,
-      "High": 45
+      "High": 40
     }
   },
   "installationPrices": {

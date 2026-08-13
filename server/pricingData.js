@@ -46,14 +46,9 @@ function makeAddOns(addOns = []) {
 
 function makeDiscounts(discountPercentages = {}) {
   return Object.fromEntries(
-    Object.entries(discountPercentages).map(([customerType, tiers]) => [
+    Object.entries(discountPercentages).map(([customerType, wholePercentage]) => [
       customerType,
-      Object.fromEntries(
-        Object.entries(tiers || {}).map(([tier, wholePercentage]) => [
-          tier,
-          number(wholePercentage) / 100
-        ])
-      )
+      number(wholePercentage) / 100
     ])
   );
 }

@@ -1962,3 +1962,67 @@ button:disabled {
 .inactive-addon-row select {
   background: #f7f7f5;
 }
+
+.quote-instructions {
+  display: grid;
+  grid-template-columns: minmax(190px, 0.72fr) minmax(0, 3fr);
+  gap: 1.2rem;
+  align-items: start;
+  margin: 1rem 0;
+  padding: 1.15rem 1.25rem;
+  border: 2px solid #A5A71B;
+  border-radius: 1.1rem;
+  background: #fff;
+  box-shadow: 0 10px 30px rgb(31 41 51 / 6%);
+}
+
+.instruction-heading h2 {
+  margin: 0.2rem 0 0;
+  color: #404040;
+  font-size: 1.35rem;
+}
+
+.instruction-kicker {
+  display: block;
+  color: #5D5F13;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.09em;
+}
+
+.instruction-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem 1.1rem;
+}
+
+.instruction-grid div {
+  display: grid;
+  gap: 0.2rem;
+  padding-left: 0.8rem;
+  border-left: 3px solid #C7CC40;
+}
+
+.instruction-grid strong {
+  color: #5D5F13;
+  font-size: 0.9rem;
+}
+
+.instruction-grid span {
+  color: #555;
+  font-size: 0.84rem;
+  line-height: 1.4;
+}
+
+@media (max-width: 850px) {
+  .quote-instructions,
+  .instruction-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media print {
+  .quote-instructions {
+    display: none !important;
+  }
+}

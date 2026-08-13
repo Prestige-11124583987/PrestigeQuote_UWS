@@ -37,8 +37,8 @@ const today = new Intl.DateTimeFormat("en-US", {
   year: "numeric"
 }).format(new Date());
 
-const ADD_ON_DRIVERS = ["SF", "Glass", "Slabs", "Each"];
-const SPECIAL_REFERENCE_LISTS = new Set(["Styles"]);
+const ADD_ON_DRIVERS = ["SF", "Glass", "Impact", "Slabs", "Each"];
+const SPECIAL_REFERENCE_LISTS = new Set(["Styles", "Discount Tier"]);
 const WORK_SCOPE_OPTIONS = [
   "Furnish new Prestige door(s)/window(s).",
   "Remove existing Door(s).",
@@ -228,13 +228,30 @@ function unitTotalSf(unit) {
   return 0;
 }
 
+function QuoteInstructions() {
+  return (
+    <section className="quote-instructions" aria-label="How to use the UWS quote builder">
+      <div className="instruction-heading">
+        <span className="instruction-kicker">UWS QUICK GUIDE</span>
+        <h2>How to Use This Tool</h2>
+      </div>
+      <div className="instruction-grid">
+        <div><strong>1. Set up the quote.</strong><span>Enter the client/project information and choose a pricing level. Retail (15%) and Builder (35%) are suggested values; UNIVERSAL WINDOW SOLUTIONS is 40% off.</span></div>
+        <div><strong>2. Add each unit.</strong><span>Enter dimensions in inches, quantity, door type, and all applicable options. Total SF calculates automatically. Leave Glass Area SF Override blank for standard Impact Glass pricing unless a specific glass area should be used.</span></div>
+        <div><strong>3. Read the output.</strong><span>Retail is the full door/window price including selected add-ons before discount. Discount is then applied to that complete unit price. Installation is shown separately.</span></div>
+        <div><strong>4. Send for approval.</strong><span>Send the completed quote and matching drawing(s) to Prestige for approval and invoicing. The estimator output is not an approved order or invoice by itself.</span></div>
+      </div>
+    </section>
+  );
+}
+
 function QuoteHeader({ quote, setQuote, config }) {
   return (
     <section className="card setup-card">
       <div className="section-header">
         <div>
           <h2>Quote Setup</h2>
-          <p className="muted">Customer type and tier drive the default material discount.</p>
+          <p className="muted">Choose the pricing level that should apply to the completed door/window price.</p>
         </div>
       </div>
 
@@ -315,18 +332,12 @@ function QuoteHeader({ quote, setQuote, config }) {
 
       <div className="divider" />
 
-      <div className="grid four compact-grid">
+      <div className="grid three compact-grid">
         <SelectField
-          label="Customer Type"
+          label="Pricing Level"
           value={quote.customerType}
           options={config?.referenceLists?.["Customer Type"]}
           onChange={(customerType) => setQuote({ ...quote, customerType })}
-        />
-        <SelectField
-          label="Discount Tier"
-          value={quote.discountTier}
-          options={config?.referenceLists?.["Discount Tier"]}
-          onChange={(discountTier) => setQuote({ ...quote, discountTier })}
         />
         <NumberField
           label="Install Discount %"
@@ -460,7 +471,7 @@ function UnitEditor({ unit, quote, setQuote, config, onDuplicate }) {
           }
         />
         <NumberField
-          label="Glass Area SF"
+          label="Glass Area SF Override"
           value={unit.glassSf}
           onChange={(glassSf) =>
             setQuote(updateUnit(quote, unit.id, { glassSf }))
@@ -527,7 +538,7 @@ function UnitEditor({ unit, quote, setQuote, config, onDuplicate }) {
       </div>
 
       <p className="small muted">
-        Calculated total SF: {totalSf.toFixed(2)}. Width and height are entered in inches; pricing converts them to SF behind the scenes. Add-ons are priced by their driver: SF, glass SF, door type, or each.
+        Calculated total SF: {totalSf.toFixed(2)}. Width and height are entered in inches. Impact Glass uses this total unit SF by default; enter a Glass Area SF Override only when a specific glass area should be used.
       </p>
 
       <div className="addon-grid">
@@ -539,7 +550,7 @@ function UnitEditor({ unit, quote, setQuote, config, onDuplicate }) {
               onChange={() => setQuote(toggleAddOn(quote, unit.id, addOn.name))}
             />
             <span>{capitalizeFirst(addOn.name)}</span>
-            <em>{addOn.driver}</em>
+            <em>{addOn.driver === "Impact" ? "Unit SF / Glass Override" : addOn.driver}</em>
           </label>
         ))}
       </div>
@@ -670,7 +681,6 @@ function PricingAdminPanel({ onPricingSaved, setStatus }) {
 
   const styleNames = Object.keys(pricing.styles || {});
   const customerTypes = pricing.referenceLists?.["Customer Type"] || Object.keys(pricing.discounts || {});
-  const discountTiers = pricing.referenceLists?.["Discount Tier"] || ["Low", "High"];
   const buildTypes = pricing.referenceLists?.["Build Types"] || [];
   const editableReferenceLists = Object.keys(pricing.referenceLists || {}).filter(
     (listName) => !SPECIAL_REFERENCE_LISTS.has(listName)
@@ -710,13 +720,15 @@ function PricingAdminPanel({ onPricingSaved, setStatus }) {
       };
     });
 
+    delete next.referenceLists["Discount Tier"];
     const types = next.referenceLists["Customer Type"] || [];
-    const tiers = next.referenceLists["Discount Tier"] || [];
     for (const customerType of types) {
-      next.discounts[customerType] = next.discounts[customerType] || {};
-      for (const tier of tiers) {
-        next.discounts[customerType][tier] = Number(next.discounts[customerType]?.[tier] || 0);
-      }
+      const current = next.discounts[customerType];
+      next.discounts[customerType] = Number(
+        current && typeof current === "object"
+          ? current.High ?? current.Low ?? Object.values(current)[0] ?? 0
+          : current || 0
+      );
     }
 
     for (const buildType of next.referenceLists["Build Types"] || []) {
@@ -858,10 +870,9 @@ function PricingAdminPanel({ onPricingSaved, setStatus }) {
     });
   }
 
-  function updateDiscount(customerType, tier, rawValue) {
+  function updateDiscount(customerType, rawValue) {
     mutatePricing((next) => {
-      next.discounts[customerType] = next.discounts[customerType] || {};
-      next.discounts[customerType][tier] = Number(rawValue || 0) / 100;
+      next.discounts[customerType] = Number(rawValue || 0) / 100;
     });
   }
 
@@ -1052,30 +1063,28 @@ function PricingAdminPanel({ onPricingSaved, setStatus }) {
 
       <h3>Discount Rules</h3>
       <p className="small muted">
-        Add customer types or discount tiers in Dropdown Options below. Then enter the default discount percentage here.
+        Each pricing level has one default discount. The discount applies after the base door/window price and all selected add-ons are combined.
       </p>
       <div className="table-wrap">
         <table className="editable-table compact">
           <thead>
             <tr>
-              <th>Customer Type</th>
-              {discountTiers.map((tier) => <th key={tier}>{tier} Discount %</th>)}
+              <th>Pricing Level</th>
+              <th>Discount %</th>
             </tr>
           </thead>
           <tbody>
             {customerTypes.map((customerType) => (
               <tr key={customerType}>
                 <td>{customerType}</td>
-                {discountTiers.map((tier) => (
-                  <td key={`${customerType}-${tier}`}>
-                    <input
-                      type="number"
-                      step="0.1"
-                      value={round2(Number(pricing.discounts?.[customerType]?.[tier] || 0) * 100)}
-                      onChange={(e) => updateDiscount(customerType, tier, e.target.value)}
-                    />
-                  </td>
-                ))}
+                <td>
+                  <input
+                    type="number"
+                    step="0.1"
+                    value={round2(Number(pricing.discounts?.[customerType] || 0) * 100)}
+                    onChange={(e) => updateDiscount(customerType, e.target.value)}
+                  />
+                </td>
               </tr>
             ))}
           </tbody>
@@ -2306,14 +2315,14 @@ export default function App() {
     <main className="app-shell">
       <header className="app-header">
         <div>
-          <p className="eyebrow">Prestige Estimator</p>
-          <h1>Estimate Builder</h1>
+          <p className="eyebrow">Prestige × Universal Window Solutions</p>
+          <h1>UWS Quote Builder</h1>
           <p>
-            Internal quote builder with browser-local pricing controls and combined quote PDFs.
+            Build customer-facing Prestige quotes, then send the completed quote and drawing(s) to Prestige for approval and invoicing.
           </p>
         </div>
         <div className="header-actions">
-          <span className="internal-badge">Internal tool</span>
+          <span className="internal-badge">UWS Tool</span>
           <a className="header-link" href="#invoice-supplements">Supplements</a>
           <a className="header-link" href="#pricing-controls">Pricing & Options</a>
           <button
@@ -2334,6 +2343,8 @@ export default function App() {
       </header>
 
       {status ? <p className="status">{status}</p> : null}
+
+      <QuoteInstructions />
 
       <PricingGuide config={config} />
 

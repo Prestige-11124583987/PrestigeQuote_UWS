@@ -1,7 +1,7 @@
 {
   "_instructions": [
     "EDIT THIS FILE to change repository-wide default prices and options.",
-    "Enter discounts as whole percentages. Example: 18 means 18%, not 0.18.",
+    "Enter discounts as whole percentages. Example: 15 means 15%, not 0.15.",
     "Set an add-on active value to true to show it or false to hide it from new quotes.",
     "Keep commas and quotation marks in place. Commit the file to GitHub and Render will redeploy.",
     "Salespeople can still make temporary browser-only edits inside Pricing & Options."
@@ -81,8 +81,8 @@
     {
       "name": "Impact Glass",
       "active": true,
-      "chargeBy": "Glass",
-      "unitLabel": "/ SF of Glass",
+      "chargeBy": "Impact",
+      "unitLabel": "/ SF of Unit (Glass Override if entered)",
       "pricesByStyle": {
         "Traditional": 40,
         "Slim Line": 40,
@@ -198,32 +198,12 @@
         "Slim Line": 12,
         "Interior Partitions": 12
       }
-    },
-    {
-      "name": "Switchable E-Glass (w/ Remote)",
-      "active": true,
-      "chargeBy": "Glass",
-      "unitLabel": "/ SF of Glass",
-      "pricesByStyle": {
-        "Traditional": 40,
-        "Slim Line": 40,
-        "Interior Partitions": 40
-      }
     }
   ],
   "discountPercentages": {
-    "Retail": {
-      "Low": 15,
-      "High": 20
-    },
-    "Builder": {
-      "Low": 30,
-      "High": 35
-    },
-    "Distributor": {
-      "Low": 40,
-      "High": 40
-    }
+    "Retail": 15,
+    "Builder": 35,
+    "UNIVERSAL WINDOW SOLUTIONS": 40
   },
   "installationPrices": {
     "New Build": 1500,
@@ -284,11 +264,7 @@
     "Customer Type": [
       "Retail",
       "Builder",
-      "Distributor"
-    ],
-    "Discount Tier": [
-      "Low",
-      "High"
+      "UNIVERSAL WINDOW SOLUTIONS"
     ],
     "Yes/No": [
       "Yes",

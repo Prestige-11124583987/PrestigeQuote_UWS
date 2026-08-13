@@ -11,8 +11,7 @@ const quote = {
   quoteNumber: "EST-0001",
   preparedFor: { company: "", contact: "" },
   preparedBy: { name: "", email: "", phone: "" },
-  customerType: "Distributor",
-  discountTier: "Low",
+  customerType: "UNIVERSAL WINDOW SOLUTIONS",
   installationDiscountRate: 0.15,
   productionDepositRate: 0.5,
   workScope: [
@@ -99,13 +98,12 @@ const fullDoorUnitDiscountData = {
       prices: { Test: 50 }
     }
   ],
-  discounts: { Retail: { Low: 0.2 } },
+  discounts: { Retail: 0.2 },
   install: { "New Build": 0 }
 };
 
 const fullDoorUnitDiscountQuote = {
   customerType: "Retail",
-  discountTier: "Low",
   installationDiscountRate: 0,
   productionDepositRate: 0.5,
   workScope: [
@@ -135,5 +133,34 @@ assert.equal(fullDoorUnitDiscountResult.units[0].unitDiscountAmount, 30);
 assert.equal(fullDoorUnitDiscountResult.units[0].unitPrice, 120);
 assert.equal(fullDoorUnitDiscountResult.totals.productionDepositBasis, 120);
 assert.equal(fullDoorUnitDiscountResult.totals.productionDepositDue, 60);
+
+// Impact Glass defaults to total unit SF, but uses Glass Area SF when an override is entered.
+const impactPricingData = {
+  styles: { Test: { pricePerSf: 0 } },
+  addOns: [
+    { name: "Impact Glass", driver: "Impact", units: "/ SF of Unit", prices: { Test: 40 } }
+  ],
+  discounts: { Retail: 0 },
+  install: { "New Build": 0 }
+};
+
+const impactDefault = calculateQuote({
+  customerType: "Retail",
+  units: [{
+    id: 1, style: "Test", buildType: "New Build", widthIn: 48, heightIn: 96, quantity: 1,
+    addOns: { "Impact Glass": true }
+  }]
+}, impactPricingData);
+assert.equal(impactDefault.units[0].totalSf, 32);
+assert.equal(impactDefault.units[0].unitRetailPrice, 1280);
+
+const impactOverride = calculateQuote({
+  customerType: "Retail",
+  units: [{
+    id: 1, style: "Test", buildType: "New Build", widthIn: 48, heightIn: 96, glassSf: 20, quantity: 1,
+    addOns: { "Impact Glass": true }
+  }]
+}, impactPricingData);
+assert.equal(impactOverride.units[0].unitRetailPrice, 800);
 
 console.log("Pricing engine test passed.");

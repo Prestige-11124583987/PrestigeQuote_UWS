@@ -69,7 +69,7 @@ function unique(values) {
 }
 
 function validDriver(driver) {
-  return ["SF", "Glass", "Slabs", "Each"].includes(driver) ? driver : "SF";
+  return ["SF", "Glass", "Impact", "Slabs", "Each"].includes(driver) ? driver : "SF";
 }
 
 function normalizePricingData(input) {
@@ -115,23 +115,30 @@ function normalizePricingData(input) {
       return normalized;
     });
 
+  const hasLegacyTieredDiscounts = Object.values(data.discounts || {}).some(
+    (value) => value && typeof value === "object" && !Array.isArray(value)
+  );
+
+  // The UWS pricing model removes discount tiers entirely. If a persistent/local pricing file
+  // still contains the old tiered structure, reset just the discount model to
+  // the repository defaults so old Low/High choices cannot leak into UWS quotes.
+  if (hasLegacyTieredDiscounts) {
+    data.discounts = deepClone(defaultPricingData.discounts || {});
+    data.referenceLists["Customer Type"] = deepClone(
+      defaultPricingData.referenceLists?.["Customer Type"] || []
+    );
+  }
+
+  delete data.referenceLists["Discount Tier"];
+
   const customerTypes = unique([
     ...(data.referenceLists["Customer Type"] || []),
     ...Object.keys(data.discounts || {})
   ]);
-  const discountTiers = unique([
-    ...(data.referenceLists["Discount Tier"] || []),
-    ...Object.values(data.discounts || {}).flatMap((tiers) => Object.keys(tiers || {}))
-  ]);
 
   data.referenceLists["Customer Type"] = customerTypes;
-  data.referenceLists["Discount Tier"] = discountTiers;
-
   for (const customerType of customerTypes) {
-    data.discounts[customerType] = data.discounts[customerType] || {};
-    for (const tier of discountTiers) {
-      data.discounts[customerType][tier] = number(data.discounts[customerType]?.[tier], 0);
-    }
+    data.discounts[customerType] = number(data.discounts[customerType], 0);
   }
 
   const buildTypes = unique(data.referenceLists["Build Types"] || []);

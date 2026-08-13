@@ -8,14 +8,13 @@ const pricing = {
     { name: "Active Add-on", active: true, driver: "Each", units: "Each", prices: { Test: 25 } },
     { name: "Inactive Add-on", active: false, driver: "Each", units: "Each", prices: { Test: 75 } }
   ],
-  discounts: { Retail: { Low: 0 } },
+  discounts: { Retail: 0 },
   install: { "New Build": 0 },
-  referenceLists: { Styles: ["Test"], "Customer Type": ["Retail"], "Discount Tier": ["Low"], "Build Types": ["New Build"] }
+  referenceLists: { Styles: ["Test"], "Customer Type": ["Retail"], "Build Types": ["New Build"] }
 };
 
 const quote = {
   customerType: "Retail",
-  discountTier: "Low",
   units: [{
     id: 1,
     name: "Visibility Test",

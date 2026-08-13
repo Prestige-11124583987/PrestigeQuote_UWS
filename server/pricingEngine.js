@@ -56,6 +56,10 @@ function driverBasis(driver, unit) {
   switch (driver) {
     case "Glass":
       return number(unit.glassSf);
+    case "Impact": {
+      const glassAreaOverride = number(unit.glassSf);
+      return glassAreaOverride > 0 ? glassAreaOverride : totalSquareFeet(unit);
+    }
     case "Slabs":
       return number(unit.slabs);
     case "Each":
@@ -66,8 +70,8 @@ function driverBasis(driver, unit) {
   }
 }
 
-export function getDefaultDiscount(data, customerType, discountTier) {
-  return number(data?.discounts?.[customerType]?.[discountTier], 0);
+export function getDefaultDiscount(data, customerType) {
+  return number(data?.discounts?.[customerType], 0);
 }
 
 export function getUnitDiscount(unit, quote, data) {
@@ -76,11 +80,7 @@ export function getUnitDiscount(unit, quote, data) {
     return number(override);
   }
 
-  return getDefaultDiscount(
-    data,
-    quote.customerType || "Retail",
-    quote.discountTier || "Low"
-  );
+  return getDefaultDiscount(data, quote.customerType || "Retail");
 }
 
 export function calculateUnit(unit, quote, data) {
@@ -250,7 +250,6 @@ export function calculateQuote(quote, data) {
     preparedFor: quote.preparedFor || {},
     preparedBy: quote.preparedBy || {},
     customerType: quote.customerType || "Retail",
-    discountTier: quote.discountTier || "Low",
     workScope: Array.isArray(quote.workScope) ? quote.workScope.filter(Boolean) : [],
     units: externalUnits,
     totals: {
@@ -285,8 +284,7 @@ export function makeSampleQuote() {
       email: "info@prestigeirondoors.com",
       phone: "(855) 767-2837"
     },
-    customerType: "Distributor",
-    discountTier: "High",
+    customerType: "UNIVERSAL WINDOW SOLUTIONS",
     installationDiscountRate: 0,
     productionDepositRate: 0.5,
     workScope: [],

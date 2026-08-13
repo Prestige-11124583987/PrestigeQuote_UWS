@@ -7,12 +7,12 @@ import {
 
 const repositoryPricingV1 = {
   metadata: { sourceRevision: "repo-v1" },
-  discounts: { Retail: { Low: 0.18 } }
+  discounts: { Retail: 0.18 }
 };
 
 const localPricingV1 = {
   metadata: { sourceRevision: "repo-v1" },
-  discounts: { Retail: { Low: 0.2 } }
+  discounts: { Retail: 0.2 }
 };
 
 const matchingRecord = makeStoredPricingRecord(localPricingV1);
@@ -21,7 +21,7 @@ assert.equal(resolveStoredPricing(repositoryPricingV1, matchingRecord), localPri
 
 const repositoryPricingV2 = {
   metadata: { sourceRevision: "repo-v2" },
-  discounts: { Retail: { Low: 0.25 } }
+  discounts: { Retail: 0.25 }
 };
 
 assert.equal(isCurrentStoredPricing(repositoryPricingV2, matchingRecord), false);
@@ -29,7 +29,7 @@ assert.equal(resolveStoredPricing(repositoryPricingV2, matchingRecord), reposito
 
 const legacyFullPricingObject = {
   metadata: {},
-  discounts: { Retail: { Low: 0.18 } }
+  discounts: { Retail: 0.18 }
 };
 assert.equal(resolveStoredPricing(repositoryPricingV2, legacyFullPricingObject), repositoryPricingV2);
 
